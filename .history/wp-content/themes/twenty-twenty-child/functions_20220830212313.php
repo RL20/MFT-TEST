@@ -6,7 +6,7 @@
 	   wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
 	}
 
-//●	Disable wp admin bar for this user, using code
+
 add_action('after_setup_theme', 'remove_admin_bar');
 function remove_admin_bar() {
 if (!current_user_can('administrator') && !is_admin()) {
