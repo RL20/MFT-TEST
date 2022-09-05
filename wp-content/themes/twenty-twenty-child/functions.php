@@ -1,15 +1,16 @@
 <?php
 
-	add_action( 'wp_enqueue_scripts', 'tt_child_enqueue_parent_styles' );
+add_action( 'wp_enqueue_scripts', 'tt_child_enqueue_parent_styles' );
 
-	function tt_child_enqueue_parent_styles() {
-	   wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
-	}
+function tt_child_enqueue_parent_styles() {
+		wp_enqueue_style( 'parent-style', get_template_directory_uri().'/style.css' );
+}
 
 add_action('after_setup_theme', 'remove_admin_bar');
 function remove_admin_bar() {
-if (!current_user_can('administrator') && !is_admin()) {
-  show_admin_bar(false);
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
 }
 
 function QuadLayers_custom_post_type() {
@@ -27,31 +28,32 @@ function QuadLayers_custom_post_type() {
 		'search_items'        => __( 'Search Product', 'twentytwenty' ),
 		'not_found'           => __( 'Not Found', 'twentytwenty' ),
 		'not_found_in_trash'  => __( 'Not found in Trash', 'twentytwenty' ),
-);
+	);
 	
   
-$args = array(
-	'label'               => __( 'movies', 'storefront' ),
-	'description'         => __( 'Movie news and reviews', 'storefront' ),
-	'labels'              => $labels,  
-	'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),     
-	'taxonomies'          => array( 'genres' ),     
-	'hierarchical'        => false,
-	'public'              => true,
-	'show_ui'             => true,
-	'show_in_menu'        => true,
-	'show_in_nav_menus'   => true,
-	'show_in_admin_bar'   => true,
-	'menu_position'       => 5,
-	'can_export'          => true,
-	'has_archive'         => true,
-	'exclude_from_search' => false,
-	'publicly_queryable'  => true,
-	'capability_type'     => 'post',
-	'show_in_rest' => true, 
-);
-// Registering your Custom Post Type
-register_post_type( 'products', $args );
+	$args = array(
+		'labels'              => $labels,  
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),     
+		'hierarchical'        => true,
+		'public'              => true,
+		'has_archive'         => true,
+	);
+	// Registering your Custom Post Type
+	register_post_type( 'products', $args );
 }
-add_action( 'init', 'QuadLayers_custom_post_type', 0 );
-}?>
+//!------------------------------------------------
+// function create_post_type() {
+// 	register_post_type( 'acme_product',
+// 			array(
+// 				 'labels' => array(
+// 							'name' => __( 'Products' ),
+// 							'singular_name' => __( 'Product' )
+// 					),
+// 					'public' => true,
+// 					'has_archive' => true,
+// 					'supports' => array( 'title', 'editor', 'custom-fields' )
+// 			)
+// 	);
+// }
+add_action( 'init', 'QuadLayers_custom_post_type' );
+?>
